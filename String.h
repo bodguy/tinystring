@@ -17,7 +17,7 @@ public:
     u8string u8 = utf8::utf32to8(str);
     _str = std::u16string(reinterpret_cast<const char16_t*>(u8.c_str()), u8.length()/sizeof(char16_t));
   }
-  explicit String(const std::u16string& str) : _str() { std::copy(str.begin(), str.end(), _str); }
+  explicit String(const std::u16string& str) : _str(str) {}
   explicit String(const char* byte) : _str(utf8::utf8to16(u8string(byte))) {}
   explicit String(const char16_t* byte) : _str(byte) {}
 
@@ -28,6 +28,8 @@ public:
   const char16_t* c16_str() const {
     return _str.c_str();
   }
+
+  std::u16string getStr() const { return _str; }
 
 //  friend std::ostream& operator<<(std::ostream& os, const String& str);
 
