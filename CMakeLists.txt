@@ -3,4 +3,4 @@ project(utf)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(utf main.cpp String.cpp String.h emoji.h)
+add_executable(utf main.cpp String.cpp String.h)
