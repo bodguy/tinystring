@@ -5,4 +5,5 @@
 !/res/
 !/third_party/
 !/.gitignore
+!/README.md
 !/CMakeLists.txt
