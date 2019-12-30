@@ -1,6 +1,6 @@
 #include <codecvt>
 #include <vector>
-#include "utf8.h"
+#include <utf8/utf8.h>
 #include "String.h"
 
 String::String() : _str() {}

@@ -5,7 +5,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-  const char* test_file_path = "../sample8.json";
+  const char* test_file_path = "../res/sample.txt";
   ifstream fs8(test_file_path);
   if (!fs8.is_open()) {
     cout << "Could not open " << test_file_path << endl;
@@ -61,6 +61,17 @@ int main(int argc, char** argv) {
   for (char16_t c : str2) {
     std::cout << c << std::endl;
   }
+//  std::cout << String("\u5B66") << std::endl;
+  char16_t u16ch[2] = { 0xD83C, 0xDF7A };
+  char u8ch[4] = { static_cast<char>(0xF0), static_cast<char>(0x9F), static_cast<char>(0x8D), static_cast<char>(0xBA) };
+
+  std::string u8str = u8ch;
+  std::cout << u8str.size() << std::endl;
+//  std::u16string u16str = ch;
+//  std::cout << u16str << std::endl;
+//  std::cout << String(u16ch) << std::endl;
+//  std::u32string str123123 = U"\u5B66";
+//  std::cout << str123123.size() << std::endl;
 
   return 0;
 }

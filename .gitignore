@@ -1,8 +1,8 @@
 /*
 
-!/*.cpp
-!/*.h
-!/*.json
-!/utf8/
+!/src/
+!/test/
+!/res/
+!/third_party/
 !/.gitignore
 !/CMakeLists.txt
