@@ -65,8 +65,8 @@ int main(int argc, char** argv) {
   char16_t u16ch[2] = { 0xD83C, 0xDF7A };
   char u8ch[4] = { static_cast<char>(0xF0), static_cast<char>(0x9F), static_cast<char>(0x8D), static_cast<char>(0xBA) };
 
-  std::string u8str = u8ch;
-  std::cout << u8str << std::endl;
+//  std::string u8str = u8ch;
+//  std::cout << u8str << std::endl;
 //  std::u16string u16str = ch;
 //  std::cout << u16str << std::endl;
 //  std::cout << String(u16ch) << std::endl;
