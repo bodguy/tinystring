@@ -159,6 +159,70 @@ private:
     buffer[used_size] = '\0';
   }
 
+  typedef unsigned char utf8_encoding[4];
+  typedef unsigned char uchar8;
+  typedef unsigned short uchar16;
+  typedef unsigned int uchar32;
+
+  // generates a UTF-8 encoding from a 32 bit UCS-4 character.
+  FORCE_INLINE void get_utf8_encoding(uchar32 in, utf8_encoding& out, int& out_size, bool default_order = true) {
+    if (!default_order) {
+      // reverse byte order what ever ordering is applied (little or big)
+      in = ((in & 0x000000ff) << 24) + ((in & 0x0000ff00) << 8) + ((in & 0x00ff0000) >> 8) + ((in & 0xff000000) >> 24);
+    }
+
+    if (in < 0x80) { // 1000 0000
+      // 1 byte encoding
+      out[0] = (char)in;
+      out_size = 1;
+    } else if (in < 0x800) { // 1000 0000 0000
+      // 2 byte encoding
+      // 1100 0000 (0xC0)
+      out[0] = 0xC0 + ((in & 0x7C0) >> 6);
+      out[1] = 0x80 + (in & 0x3F);
+      out_size = 2;
+    } else if (in < 0x10000) { // 0001 0000 0000 0000 0000
+      // 3 byte encoding
+      // 1110 0000 (0xE0)
+      out[0] = 0xE0 + ((in & 0xF000) >> 12);
+      out[1] = 0x80 + ((in & 0xFC0) >> 6);
+      out[2] = 0x80 + (in & 0x3F);
+      out_size = 3;
+    } else {
+      // 4 byte encoding
+      // 1111 0000 (0xF0)
+      out[0] = 0xF8 + ((in & 0x1C0000) >> 18);
+      out[1] = 0x80 + ((in & 0x3F000) >> 12);
+      out[2] = 0x80 + ((in & 0xFC0) >> 6);
+      out[3] = 0x80 + (in & 0x3F);
+      out_size = 4;
+    }
+  }
+  // generates a UTF-8 encoding from a 16 bit UCS-2 character.
+  FORCE_INLINE void get_utf8_encoding(uchar16 in, utf8_encoding& out, int& out_size, bool default_order = true) {
+    if (!default_order) {
+      in = ((in & 0x00ff) << 8) + ((in & 0xff00) >> 8);
+    }
+
+    get_utf8_encoding((uchar32)in, out, out_size, true);
+  }
+  //  Converts a UTF8 encoded character into a 32 bit single code
+  FORCE_INLINE uchar32 utf8_char_to_unicode(const uchar8* utf8_data) {
+    if (utf8_data[0] < 0x80) {
+      // 1 byte
+      return (uchar32)utf8_data[0];
+    } else if (utf8_data[0] < 0xE0) {
+      // 2 byte
+      return ((utf8_data[0] & 0x1F) << 6) + (utf8_data[1] & 0x3F); // 00111111
+    } else if (utf8_data[0] < 0xF0) {
+      // 3 byte
+      return ((utf8_data[0] & 0xF) << 12) + ((utf8_data[1] & 0x3F) << 6) + (utf8_data[2] & 0x3F);
+    } else {
+      // 4 byte
+      return ((utf8_data[0] & 0x7) << 18) + ((utf8_data[1] & 0x3F) << 12) + ((utf8_data[2] & 0x3F) << 6) + (utf8_data[3] & 0x3F);
+    }
+  }
+
   pointer buffer;
   size_type reserved_size;
   size_type used_size;
