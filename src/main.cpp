@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "String.h"
+#include "FString.h"
 
 using namespace std;
 
@@ -72,6 +73,11 @@ int main(int argc, char** argv) {
 //  std::cout << String(u16ch) << std::endl;
 //  std::u32string str123123 = U"\u5B66";
 //  std::cout << str123123.size() << std::endl;
+
+  FString strrrrr = "hello world";
+  FString strrrrr2 = "hello world2";
+  bool res = strrrrr == strrrrr2;
+  std::cout << std::boolalpha << res << std::endl;
 
   return 0;
 }
