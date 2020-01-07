@@ -128,36 +128,37 @@ C (U+0043) -> 0x0043  (compatible with ASCII code)
 
 ### Endianess
 
-In UTF-16 encodings, endianess is matter. there are two kind of encodings: UTF-16BE, UTF-16LE
+In UTF-16 encodings, endianess is matter.  
+there are two kind of encodings: UTF-16BE, UTF-16LE  
 
-- Bits representation
-|15            8|7             0|
-+---+---+---+---+---+---+---+---+
-| y | y | y | y | x | x | x | x |
-+---+---+---+---+---+---+---+---+
+- Bits representation  
+|15            8|7             0|  
++---+---+---+---+---+---+---+---+  
+| y | y | y | y | x | x | x | x |  
++---+---+---+---+---+---+---+---+  
 
-- UTF-16BE
-   first byte       second byte
-|7             0|7             0|
-+---+---+---+---+---+---+---+---+
-| y | y | y | y | x | x | x | x |
-+---+---+---+---+---+---+---+---+
+- UTF-16BE  
+   first byte       second byte  
+|7             0|7             0|  
++---+---+---+---+---+---+---+---+  
+| y | y | y | y | x | x | x | x |  
++---+---+---+---+---+---+---+---+  
 
-- UTF-16LE
-   first byte       second byte
-|7             0|7             0|
-+---+---+---+---+---+---+---+---+
-| x | x | x | x | y | y | y | y |
-+---+---+---+---+---+---+---+---+
+- UTF-16LE  
+   first byte       second byte  
+|7             0|7             0|  
++---+---+---+---+---+---+---+---+  
+| x | x | x | x | y | y | y | y |  
++---+---+---+---+---+---+---+---+  
 
 ### Surrogate
 
-- High surrogate: U+D800 ~ U+DBFF
-110110
-- Low surrogate: U+DC00 ~ U+DFFF
-110111
+- High surrogate: U+D800 ~ U+DBFF  
+110110yy yyxxxxxx  
+- Low surrogate: U+DC00 ~ U+DFFF  
+110111xx xxxxxxxx  
 
-10 free bits for each surrogate = 10 + 10 = 20 bits
+10 free bits for each surrogate = 10 + 10 = 20 bits  
 
 ### Unicode Planes
 
