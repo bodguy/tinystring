@@ -126,6 +126,39 @@ C (U+0043) -> 0x0043  (compatible with ASCII code)
 🍺 (U+1F37A) -> 0xD83C 0xDF7A (located outside the BMP, two 16-bit code units)
 ```
 
+### Endianess
+
+In UTF-16 encodings, endianess is matter. there are two kind of encodings: UTF-16BE, UTF-16LE
+
+- Bits representation
+|15            8|7             0|
++---+---+---+---+---+---+---+---+
+| y | y | y | y | x | x | x | x |
++---+---+---+---+---+---+---+---+
+
+- UTF-16BE
+   first byte       second byte
+|7             0|7             0|
++---+---+---+---+---+---+---+---+
+| y | y | y | y | x | x | x | x |
++---+---+---+---+---+---+---+---+
+
+- UTF-16LE
+   first byte       second byte
+|7             0|7             0|
++---+---+---+---+---+---+---+---+
+| x | x | x | x | y | y | y | y |
++---+---+---+---+---+---+---+---+
+
+### Surrogate
+
+- High surrogate: U+D800 ~ U+DBFF
+110110
+- Low surrogate: U+DC00 ~ U+DFFF
+110111
+
+10 free bits for each surrogate = 10 + 10 = 20 bits
+
 ### Unicode Planes
 
 Unicode defines a concept of plane as a continuous group of 65,536 (216) code points.
