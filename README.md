@@ -5,9 +5,11 @@ ASCII come first. After ASCII, came code pages. After code pages, came DBCS. Aft
 
 ### The ASCII
 
-### variable-width encoding and MBCS
+### variable-width encoding and multibyte encodings
 
 A variable-width encoding is a type of character encoding scheme in which codes of differing lengths are used to encode a character set (a repertoire of symbols) for representation in a computer. Most common variable-width encodings are multibyte encodings, which use varying numbers of bytes (octets) to encode different characters.
+
+MBCS (Multibyte Character Set) is not a formal term. Microsoft made this.
 
 Since the aim of a multibyte encoding system is to minimise changes to existing application software, some characters must retain their pre-existing single-unit codes, even while other characters have multiple units in their codes. The result is that there are three sorts of units in a variable-width encoding: **singletons**, which consist of a single unit, **lead units**, which come first in a multiunit sequence, and **trail units**, which come afterwards in a multiunit sequence.
 
