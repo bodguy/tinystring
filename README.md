@@ -1,3 +1,16 @@
+### The history
+
+ASCII come first. After ASCII, came code pages. After code pages, came DBCS. After DBCS came MBCS  
+(and eventually UTF-8). After UTF-8, came Unicode (UTF-16/UCS-2).
+
+### The ASCII
+
+### variable-width encoding and MBCS
+
+A variable-width encoding is a type of character encoding scheme in which codes of differing lengths are used to encode a character set (a repertoire of symbols) for representation in a computer. Most common variable-width encodings are multibyte encodings, which use varying numbers of bytes (octets) to encode different characters.
+
+Since the aim of a multibyte encoding system is to minimise changes to existing application software, some characters must retain their pre-existing single-unit codes, even while other characters have multiple units in their codes. The result is that there are three sorts of units in a variable-width encoding: **singletons**, which consist of a single unit, **lead units**, which come first in a multiunit sequence, and **trail units**, which come afterwards in a multiunit sequence.
+
 ### Unicode ("Unique code point")
 
 Unicode provides a unique number for every character, 
@@ -110,7 +123,9 @@ the first two high-order bits of the remaining bytes are set to "10".
 
 This gives 21 bits (3 + 6 + 6 + 6) to encode the actual character.
 
-### UTF-16 Format
+### The UTF-16 Format
+
+UTF-16 was devised to break free of the 65,536-character limit of the original Unicode (1.x) without breaking compatibility with the 16-bit encoding. In UTF-16, singletons have the range 0000–D7FF (55,296 code points) and E000–FFFF (8192 code points, 63,488 in total), lead units the range D800–DBFF (1024 code points) and trail units the range DC00–DFFF (1024 code points, 2048 in total). The lead and trail units, called in Unicode terminology high surrogates and low surrogates respectively, map 1024×1024 or 1,048,576 supplementary characters, making 1,112,064 (63,488 BMP code points + 1,048,576 code points represented by high and low surrogate pairs) encodable code points (surrogates are not encodable).
 
 - UTF-16 is basically the de facto standard encoding used by many systems like
 Windows, Java, Qt, Unreal engine, ICU etc..
@@ -207,6 +222,9 @@ outside of BMP area codepoint will convert to UTF-16 surrogate pair.
 - UTF-16 surrogate pair (yyyy = zzzzz - 1)
 
 10 free bits for each surrogate = 10 + 10 = 20 bits  
+
+To make the detection of surrogate pairs easy, no characters are assigned to code point values in this range.  
+(U+D800 to U+DFFF)
 
 ### Unicode Planes
 
