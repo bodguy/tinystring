@@ -2,7 +2,7 @@
 
 using namespace std;
 
-unsigned int utf8_char_to_unicode(const unsigned char* utf8_data);
+unsigned int from_utf8(const unsigned char* utf8_data);
 
 int main(int argc, char** argv) {
 //  const char* test_file_path = "../res/sample.txt";
@@ -91,14 +91,14 @@ int main(int argc, char** argv) {
   fread(buffer, size, 1, fp);
   buffer[size - 1] = 0x00; // replace line feed to null character
   printf("파일에서 읽은것: %s\n", buffer);
-  unsigned int u32 = utf8_char_to_unicode((unsigned char*)buffer);
+  unsigned int u32 = from_utf8((unsigned char *) buffer);
   free(buffer);
-  printf("변환한것: %d\n", u32); // D55C
+  printf("변환한것: %04X\n", u32); // D55C
 
   return 0;
 }
 
-unsigned int utf8_char_to_unicode(const unsigned char* utf8_data) {
+unsigned int from_utf8(const unsigned char* utf8_data) {
   if (utf8_data[0] < 0x80) {
     // 1 byte
     return (unsigned int)utf8_data[0];
