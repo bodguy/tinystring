@@ -1,10 +1,10 @@
 #include <Catch2/catch.hpp>
 #include <cstring>
-#include "../src/FString.h"
+#include "../src/Str.h"
 
 TEST_CASE("FString unit test") {
-  FString dest = "hello";
-  FString other = " world";
+  Str dest = "hello";
+  Str other = " world";
 
   SECTION("string initialize with c string") {
     REQUIRE(0 == strcmp(dest.c_str(), "hello"));
@@ -17,10 +17,6 @@ TEST_CASE("FString unit test") {
   }
   SECTION("string operator [] can exceed buffer out of bound") {
     REQUIRE(0 == dest[dest.size()]);
-  }
-  SECTION("is actually concat two string") {
-    FString out = dest + other;
-    REQUIRE(0 == strcmp(out.c_str(), "hello world"));
   }
   SECTION("concat with += operator") {
     dest += other;

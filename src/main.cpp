@@ -1,8 +1,5 @@
+#include "Str.h"
 #include <iostream>
-
-using namespace std;
-
-unsigned int from_utf8(const unsigned char* utf8_data);
 
 int main(int argc, char** argv) {
 //  const char* test_file_path = "../res/sample.txt";
@@ -78,38 +75,26 @@ int main(int argc, char** argv) {
 //  bool res = strrrrr == strrrrr2;
 //  std::cout << std::boolalpha << res << std::endl;
 
-  FILE* fp = fopen("../res/sample2.txt", "rb");
-  if (fp == NULL) {
-    std::cout << "file not found" << std::endl;
-    return -1;
-  }
+// #### Sample2 ####
+//  FILE* fp = fopen("../res/sample2.txt", "rb");
+//  if (fp == NULL) {
+//    std::cout << "file not found" << std::endl;
+//    return -1;
+//  }
+//
+//  fseek(fp, 0, SEEK_END);
+//  size_t size = ftell(fp);
+//  fseek(fp, 0, SEEK_SET);
+//  char* buffer = (char*)malloc(sizeof(char) * size);
+//  fread(buffer, size, 1, fp);
+//  buffer[size - 1] = 0x00; // replace line feed to null character
+//  printf("파일에서 읽은것: %s\n", buffer);
+//  unsigned int u32 = from_utf8((unsigned char *) buffer);
+//  free(buffer);
+//  printf("변환한것: %04X\n", u32); // D55C
 
-  fseek(fp, 0, SEEK_END);
-  size_t size = ftell(fp);
-  fseek(fp, 0, SEEK_SET);
-  char* buffer = (char*)malloc(sizeof(char) * size);
-  fread(buffer, size, 1, fp);
-  buffer[size - 1] = 0x00; // replace line feed to null character
-  printf("파일에서 읽은것: %s\n", buffer);
-  unsigned int u32 = from_utf8((unsigned char *) buffer);
-  free(buffer);
-  printf("변환한것: %04X\n", u32); // D55C
+  Str hangul = "asdasd";
+  std::cout << hangul << std::endl;
 
   return 0;
-}
-
-unsigned int from_utf8(const unsigned char* utf8_data) {
-  if (utf8_data[0] < 0x80) {
-    // 1 byte
-    return (unsigned int)utf8_data[0];
-  } else if (utf8_data[0] < 0xE0) {
-    // 2 byte
-    return ((utf8_data[0] & 0x1F) << 6) + (utf8_data[1] & 0x3F); // 00111111
-  } else if (utf8_data[0] < 0xF0) {
-    // 3 byte
-    return ((utf8_data[0] & 0xF) << 12) + ((utf8_data[1] & 0x3F) << 6) + (utf8_data[2] & 0x3F);
-  } else {
-    // 4 byte
-    return ((utf8_data[0] & 0x7) << 18) + ((utf8_data[1] & 0x3F) << 12) + ((utf8_data[2] & 0x3F) << 6) + (utf8_data[3] & 0x3F);
-  }
 }

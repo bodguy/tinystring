@@ -1,17 +1,18 @@
 ### The history
 
-ASCII come first. After ASCII, came code pages. After code pages, came DBCS. After DBCS came MBCS  
-(and eventually UTF-8). After UTF-8, came Unicode (UTF-16/UCS-2).
-
-### The ASCII
+ASCII -> code pages -> DBCS -> MBCS -> UTF-* -> Unicode (UTF-16/UCS-2)  
 
 ### variable-width encoding and multibyte encodings
 
-A variable-width encoding is a type of character encoding scheme in which codes of differing lengths are used to encode a character set (a repertoire of symbols) for representation in a computer. Most common variable-width encodings are multibyte encodings, which use varying numbers of bytes (octets) to encode different characters.
+A variable-width encoding is a type of character encoding scheme in which codes of differing lengths are used to encode 
+a character set (a repertoire of symbols) for representation in a computer. 
+Most common variable-width encodings are multibyte encodings, which use varying numbers of bytes (octets) to encode different characters.
 
-MBCS (Multibyte Character Set) is not a formal term. Microsoft made this.
-
-Since the aim of a multibyte encoding system is to minimise changes to existing application software, some characters must retain their pre-existing single-unit codes, even while other characters have multiple units in their codes. The result is that there are three sorts of units in a variable-width encoding: **singletons**, which consist of a single unit, **lead units**, which come first in a multiunit sequence, and **trail units**, which come afterwards in a multiunit sequence.
+Since the aim of a multibyte encoding system is to minimise changes to existing application software, 
+some characters must retain their pre-existing single-unit codes, even while other characters have multiple units in their codes. 
+The result is that there are three sorts of units in a variable-width encoding: **singletons**, 
+which consist of a single unit, **lead units**, which come first in a multiunit sequence, and **trail units**, 
+which come afterwards in a multiunit sequence.
 
 ### Unicode ("Unique code point")
 
@@ -143,6 +144,16 @@ C (U+0043) -> 0x0043  (compatible with ASCII code)
 🍺 (U+1F37A) -> 0xD83C 0xDF7A (located outside the BMP, two 16-bit code units)
 ```
 
+- example in javascript
+```javascript
+const ch = "🍺";
+// codepoint in unicode
+console.log(ch.codePointAt(0).toString(16)); // "1f37a"
+// utf-16 codepoint surrogate pair
+console.log(ch.charCodeAt(0).toString(16)); // "d83c" 
+console.log(ch.charCodeAt(1).toString(16)); // "df7a"
+```
+
 ### Endianess
 
 In UTF-16 encodings, endianess is matter.  
@@ -226,7 +237,7 @@ outside of BMP area codepoint will convert to UTF-16 surrogate pair.
 10 free bits for each surrogate = 10 + 10 = 20 bits  
 
 To make the detection of surrogate pairs easy, no characters are assigned to code point values in this range.  
-(U+D800 to U+DFFF)
+(U+D800 to U+DFFF) same as binary represents (11011000 00000000 to 11011111 11111111)
 
 ### Unicode Planes
 
